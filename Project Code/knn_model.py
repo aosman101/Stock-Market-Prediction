@@ -1,12 +1,15 @@
 import csv
 import math
 import os
+import pandas as pd
 from typing import List, Tuple
 
 
 def load_close_prices(filename: str) -> List[float]:
-    """Load the Close column from a CSV file."""
-    prices: List[float] = []
+    
+# Load the CSV file
+df = pd.read_csv('tesla.csv')
+print(df.head())  # Show first few rows    prices: List[float] = []
     with open(filename, "r", newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
