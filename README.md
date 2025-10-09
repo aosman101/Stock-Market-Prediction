@@ -1,8 +1,8 @@
 # Deep Stock Insights: Predicting Stocks with LSTM Networks
 
-> LSTM forecasting with **volatility-aware early stopping**, systematic hyperparameter tuning, and risk-adjusted evaluation. Includes a **lightweight KNN baseline** for quick comparisons.
+LSTM forecasting with **volatility-aware early stopping**, systematic hyperparameter tuning, and risk-adjusted evaluation. Includes a **lightweight KNN baseline** for quick comparisons.
 
-Topics - time-series, arima, rnn, lstm, finance, tensorflow, stock-forecasting, backtesting, ai, volatility, knn, machine-learning and deep-learning
+Topics - Time-Series, ARIMA, RNN, LSTM, Finance, Tensorflow, Stock-Forecasting, Backtesting, AI, Volatility, KNN, Machine-Learning, Neural-Networks and Deep-Learning.
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
