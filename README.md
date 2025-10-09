@@ -1,15 +1,34 @@
-# Deep Stock Insights: Predicting Stocks Using LSTM Networks
+# Deep Stock Insights: Predicting Stocks with LSTM Networks
 
-Stock market prediction using Long Short-Term Memory (LSTM) hyperparameter tuning and volatility-sensitive early stopping enhances predictive accuracy.
+> LSTM forecasting with **volatility-aware early stopping**, systematic hyperparameter tuning, and risk-adjusted evaluation. Includes a **lightweight KNN baseline** for quick comparisons.
 
-## Alternative Time Series Model
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](#requirements)
+[![TensorFlow 2](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](#requirements)
 
-In addition to the LSTM notebook, this repository provides a simple k-nearest neighbours (KNN) regressor example for stock price forecasting. The script `Project Code/knn_model.py` trains a non-linear KNN model on Tesla closing prices and generates a five-day forecast.
+---
 
-### Running the KNN example
+## Overview
 
-```bash
-python "Project Code/knn_model.py"
-```
+Classical time-series models often struggle with non-linear dynamics and regime shifts in equities. This repo implements an **LSTM forecaster** for daily stock prices (demonstrated on TSLA), adds **volatility-sensitive early stopping** to curb overfitting during turbulent periods, and evaluates performance with **risk-adjusted metrics**. A tiny **KNN** script serves as a fast, non-parametric baseline and 5-day forecaster.
 
-The script reports mean squared error on a small test split and prints the next five-day forecast values.
+**What you’ll find here**
+
+- 🧠 **Tuned LSTM**: lookback, units, dropout, learning rate schedule, and early-stopping patience geared to volatile data.
+- 📈 **Trading-aware evaluation**: MAE / RMSE / R² alongside **Sharpe**, **Sortino**, and **max drawdown**.
+- ⚖️ **Baseline sanity check**: a compact **KNN regressor** that trains in seconds and prints a rolling 5-day forecast.
+- 🔁 **Reproducible workflow**: clear splits, fixed seeds, and a single notebook that runs end-to-end.
+
+---
+
+## Repository Structure
+
+├── LSTM Networks.ipynb # End-to-end workflow: data → train → eval → backtest.
+
+├── Project Code/
+
+│ └── knn_model.py # Simple KNN baseline on TSLA closes (5-day forecast).
+
+├── data/ # (optional) Local CSVs (e.g., tesla.csv).
+
+└── README.md.
