@@ -2,7 +2,7 @@
 
 LSTM forecasting with **volatility-aware early stopping**, systematic hyperparameter tuning, and risk-adjusted evaluation. Includes a **lightweight KNN baseline** for quick comparisons.
 
-Topics - Time-Series, ARIMA, RNN, LSTM, Finance, Tensorflow, Stock-Forecasting, Backtesting, AI, Volatility, KNN, Machine-Learning, Neural-Networks and Deep-Learning.
+Topics - Time-Series, ARIMA, RNN, LSTM, Finance, Tensorflow, Numpy, Scikit-learn, Pandas, Statsmodels, Random Forest (sklearn implementation), PyTorch, Stock-Forecasting, Backtesting, AI, Volatility, KNN, Machine-Learning, Neural-Networks and Deep-Learning.
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
