@@ -26,12 +26,13 @@ Classical time-series models often struggle with non-linear dynamics and regime 
 
 ## Repository Structure
 
+├── Project Code/
+
 ├── LSTM Networks.ipynb # End-to-end workflow: data → train → eval → backtest.
 
-├── Project Code/
+├── tesla.csv # Obtained from Yahoo API.
 
 │ └── knn_model.py # Simple KNN baseline on TSLA closes (5-day forecast).
 
-├── data/ # (optional) Local CSVs (e.g., tesla.csv).
 
 └── README.md.
