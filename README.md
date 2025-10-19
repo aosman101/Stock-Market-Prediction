@@ -2,7 +2,7 @@
 
 LSTM forecasting with **volatility-aware early stopping**, systematic hyperparameter tuning, and risk-adjusted evaluation. Includes a **lightweight KNN baseline** for quick comparisons.
 
-Topics - Time-Series, ARIMA, RNN, LSTM, Finance, Tensorflow, Numpy, Scikit-learn, Pandas, Statsmodels, Random Forest (sklearn implementation), PyTorch, Stock-Forecasting, Backtesting, AI, Volatility, KNN, Machine-Learning, Neural-Networks and Deep-Learning.
+Topics: Time Series, ARIMA, RNN, LSTM, Finance, TensorFlow, NumPy, Scikit-learn, Pandas, Statsmodels, Random Forest (sklearn implementation), PyTorch, Stock Forecasting, Backtesting, AI, Volatility, KNN, Machine Learning, Neural Networks, and Deep Learning.
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
@@ -28,11 +28,11 @@ Classical time-series models often struggle with non-linear dynamics and regime 
 
 ├── Project Code/
 
-├── LSTM Networks.ipynb # End-to-end workflow: data → train → eval → backtest.
+├── LSTM Networks.ipynb # End-to-end workflow: data collection → training → evaluation → backtesting.
 
-├── tesla.csv # Obtained from Yahoo API.
+├── tesla.csv # Acquired from the Yahoo API.
 
-│ └── knn_model.py # Simple KNN baseline on TSLA closes (5-day forecast).
+│ └── knn_model.py # Basic K-Nearest Neighbours (KNN) model for predicting Tesla (TSLA) closing prices with a 5-day forecast.
 
 
 └── README.md.
