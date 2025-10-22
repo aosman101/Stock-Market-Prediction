@@ -13,7 +13,7 @@ Topics: Time Series, ARIMA, RNN, LSTM, Finance, TensorFlow, NumPy, Scikit-learn,
 
 ## Overview
 
-Classical time-series models often struggle with non-linear dynamics and regime shifts in equities. This repo implements an **LSTM forecaster** for daily stock prices (demonstrated on TSLA), adds **volatility-sensitive early stopping** to curb overfitting during turbulent periods, and evaluates performance with **risk-adjusted metrics**. A tiny **KNN** script serves as a fast, non-parametric baseline and 5-day forecaster.
+Classical time-series models frequently struggle to capture non-linear dynamics and regime shifts in equity markets. This repository features an **LSTM forecaster** designed for daily stock prices, with a demonstration using TSLA. It incorporates **volatility-sensitive early stopping** to mitigate overfitting during turbulent market conditions and evaluates performance using **risk-adjusted metrics**. Additionally, a concise **KNN** script is included as a quick, non-parametric baseline and a 5-day forecaster.
 
 **What you’ll find here**
 
