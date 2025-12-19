@@ -1,38 +1,117 @@
 # Deep Stock Insights: Predicting Stocks with LSTM Networks
 
-LSTM forecasting with **volatility-aware early stopping**, systematic hyperparameter tuning, and risk-adjusted evaluation. Includes a **lightweight KNN baseline** for quick comparisons.
-
-Topics: Time Series, ARIMA, RNN, LSTM, Finance, TensorFlow, NumPy, Scikit-learn, Pandas, Statsmodels, Random Forest (sklearn implementation), PyTorch, Stock Forecasting, Backtesting, AI, Volatility, KNN, Machine Learning, Neural Networks, and Deep Learning.
-
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](#requirements)
 [![TensorFlow 2](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](#requirements)
+[![Made with Jupyter](https://img.shields.io/badge/Format-Jupyter%20Notebook-f37726.svg)](#notebook-workflow)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
+
+Volatility-aware LSTM forecasting on daily TSLA prices, plus a **lightweight KNN baseline** for quick reality checks. The notebook walks through preprocessing → training → evaluation with MAE / RMSE / R², while the standalone script prints a rolling 5-day forecast in seconds.
+
+- **Topics**: Time Series, ARIMA, RNN, LSTM, Finance, TensorFlow, NumPy, Scikit-learn, Pandas, Statsmodels, Baselines (KNN), Stock Forecasting, Backtesting, Deep Learning.
 
 ---
 
-## Overview
+## Overview & Results
 
-Classical time-series models frequently struggle to capture non-linear dynamics and regime shifts in equity markets. This repository features an **LSTM forecaster** designed for daily stock prices, with a demonstration using TSLA. It incorporates **volatility-sensitive early stopping** to mitigate overfitting during turbulent market conditions and evaluates performance using **risk-adjusted metrics**. Additionally, a concise **KNN** script is included as a quick, non-parametric baseline and a 5-day forecaster.
-
-**What you’ll find here**
-
-- 🧠 **Tuned LSTM**: lookback, units, dropout, learning rate schedule, and early-stopping patience geared to volatile data.
-- 📈 **Trading-aware evaluation**: MAE / RMSE / R² alongside **Sharpe**, **Sortino**, and **max drawdown**.
-- ⚖️ **Baseline sanity check**: a compact **KNN regressor** that trains in seconds and prints a rolling 5-day forecast.
-- 🔁 **Reproducible workflow**: clear splits, fixed seeds, and a single notebook that runs end-to-end.
+- **What it does**: Cleans and scales TSLA daily OHLCV data, builds train/validation/test splits, and fits both an LSTM and an ARIMA baseline to forecast closing prices. A separate `knn_model.py` offers a tiny k-NN baseline with a rolling 5-day forecast.
+- **Outputs**: Notebook cells print MAE, RMSE, and R² for each model, plus plots for price fit, residuals, and forecast overlays. The KNN script prints test-set MSE and a rounded 5-day horizon.
+- **Takeaways**: The LSTM typically captures non-linear moves better than ARIMA on this dataset, while the KNN run is a fast sanity check before/after hyperparameter tweaks.
 
 ---
 
-## Repository Structure
+## Quick Links
 
+- Notebook workflow: `Project Code/LSTM Networks.ipynb`
+- Baseline script: `Project Code/knn_model.py`
+- Sample data: `Project Code/tesla.csv`
+
+---
+
+## Highlights
+
+- 🧠 **Volatility-sensitive LSTM**: tuned lookback window, dropout, and early stopping to handle choppy price regimes.
+- 📊 **Clear evaluation**: MAE, RMSE, and R² with plots for trend fit and error behavior.
+- ⚖️ **Instant baseline**: KNN regressor that trains fast and prints a rolling 5-day horizon for sanity checks.
+- 🔁 **Reproducible flow**: fixed splits, deterministic seeds, and a single notebook that runs end-to-end.
+
+---
+
+## Repository Layout
+
+```
+.
 ├── Project Code/
+│   ├── LSTM Networks.ipynb   # End-to-end workflow: load → scale → train LSTM/ARIMA → evaluate/plot.
+│   ├── knn_model.py          # Quick KNN baseline + 5-day rolling forecast.
+│   └── tesla.csv             # Sample TSLA OHLCV data (Yahoo Finance export).
+└── README.md
+```
 
-├── LSTM Networks.ipynb # End-to-end workflow: data collection → training → evaluation → backtesting.
+---
 
-├── tesla.csv # Acquired from the Yahoo API.
+## Requirements
 
-│ └── knn_model.py # Basic K-Nearest Neighbours (KNN) model for predicting Tesla (TSLA) closing prices with a 5-day forecast.
+- Python 3.8+
+- Packages: `numpy`, `pandas`, `scikit-learn`, `matplotlib`, `seaborn`, `tensorflow` (2.x), `statsmodels`, `jupyter`
 
+Install them in a fresh environment:
 
-└── README.md.
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install --upgrade pip
+pip install numpy pandas scikit-learn matplotlib seaborn tensorflow statsmodels jupyter
+```
+
+---
+
+## Run It Yourself
+
+### Notebook workflow
+
+1) Activate the environment and launch Jupyter:
+```bash
+jupyter notebook "Project Code/LSTM Networks.ipynb"
+```
+2) Run the cells top-to-bottom. The notebook:
+   - Loads `Project Code/tesla.csv`, scales prices, and builds train/validation/test splits.
+   - Trains an LSTM (and ARIMA for comparison), using early stopping to avoid overfitting.
+   - Reports MAE, RMSE, and R², plus plots for price fit and residuals.
+
+### Lightweight KNN baseline
+
+```bash
+python "Project Code/knn_model.py"
+```
+- Prints test-set MSE.
+- Outputs a rounded 5-day rolling forecast for quick plausibility checks.
+
+---
+
+## Data
+
+- Default sample: `Project Code/tesla.csv` with columns `Date, Open, High, Low, Close, Volume, Dividends, Stock Splits`.
+- Swap in another ticker by replacing the CSV and updating the path in the notebook (the default read is `df = pd.read_csv(r'Project Code/tesla.csv')`).
+- Make sure your CSV matches the column names above to keep preprocessing identical.
+
+---
+
+## Modeling Notes
+
+- **Lookback window** and **forecast horizon** are easy levers to tweak in the notebook; the defaults target daily TSLA behavior.
+- **Scaling**: MinMax scaling keeps LSTM training stable; adjust if you add engineered features.
+- **Early stopping**: patience is tuned for noisy regimes—lengthen it if you add smoother assets or longer histories.
+- **Baselines first**: run the KNN script before/after LSTM changes to catch regressions quickly.
+
+---
+
+## Contributing
+
+Issues, ideas, and PRs are welcome—especially for alternative tickers, additional baselines, or visualization improvements.
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE).
