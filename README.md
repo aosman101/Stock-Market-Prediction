@@ -14,9 +14,9 @@ Volatility-aware LSTM forecasting on daily TSLA prices, plus a **lightweight KNN
 
 ## Overview & Results
 
-- **What it does**: Cleans and scales TSLA daily OHLCV data, builds train/validation/test splits, and fits both an LSTM and an ARIMA baseline to forecast closing prices. A separate `knn_model.py` offers a tiny k-NN baseline with a rolling 5-day forecast.
-- **Outputs**: Notebook cells print MAE, RMSE, and R² for each model, plus plots for price fit, residuals, and forecast overlays. The KNN script prints test-set MSE and a rounded 5-day horizon.
-- **Takeaways**: The LSTM typically captures non-linear moves better than ARIMA on this dataset, while the KNN run is a fast sanity check before/after hyperparameter tweaks.
+- **Workflow**: Cleans and scales TSLA OHLCV data, builds train/validation/test splits, and fits an LSTM alongside ARIMA and KNN baselines. The KNN script also prints a rolling 5-day forecast in seconds.
+- **LSTM performance** (test set): MSE `0.00080`, MAE `0.02165`, RMSE `0.03`, R² `0.9586` (~95.86% variance explained), showing tight tracking of price moves.
+- **ARIMA baseline** (test set): MSE `81273.41845`, MAE `285.08490`, underscoring the gap between the deep model and a linear alternative on this dataset.
 
 ---
 
