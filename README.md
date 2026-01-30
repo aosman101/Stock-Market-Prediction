@@ -6,7 +6,7 @@
 [![Made with Jupyter](https://img.shields.io/badge/Format-Jupyter%20Notebook-f37726.svg)](#notebook-workflow)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
-Volatility-aware LSTM forecasting on daily TSLA prices, plus a **lightweight KNN baseline** for quick reality checks. The notebook walks through preprocessing → training → evaluation with MAE / RMSE / R², while the standalone script prints a rolling 5-day forecast in seconds.
+This project involves volatility-aware LSTM forecasting of daily TSLA prices, along with a **lightweight KNN baseline** for quick reality checks. The notebook covers the entire process, including preprocessing, training, and evaluation using metrics such as MAE, RMSE, and R². Additionally, the standalone script generates a rolling 5-day forecast in just a few seconds.
 
 - **Topics**: Time Series, ARIMA, RNN, LSTM, Finance, TensorFlow, NumPy, Scikit-learn, Pandas, Statsmodels, Baselines (KNN), Stock Forecasting, Backtesting, Deep Learning.
 
@@ -72,7 +72,7 @@ pip install numpy pandas scikit-learn matplotlib seaborn tensorflow statsmodels 
 
 1) Activate the environment and launch Jupyter:
 ```bash
-jupyter notebook "Project Code/LSTM Networks.ipynb"
+Jupyter Notebook "Project Code/LSTM Networks.ipynb"
 ```
 2) Run the cells top-to-bottom. The notebook:
    - Loads `Project Code/tesla.csv`, scales prices, and builds train/validation/test splits.
@@ -97,9 +97,9 @@ python "Project Code/knn_model.py"
 
 ---
 
-## Modeling Notes
+## Modelling Notes
 
-- **Lookback window** and **forecast horizon** are easy levers to tweak in the notebook; the defaults target daily TSLA behavior.
+- **Lookback window** and **forecast horizon** are easy levers to tweak in the notebook; the defaults target daily TSLA behaviour.
 - **Scaling**: MinMax scaling keeps LSTM training stable; adjust if you add engineered features.
 - **Early stopping**: patience is tuned for noisy regimes—lengthen it if you add smoother assets or longer histories.
 - **Baselines first**: run the KNN script before/after LSTM changes to catch regressions quickly.
@@ -108,7 +108,7 @@ python "Project Code/knn_model.py"
 
 ## Contributing
 
-Issues, ideas, and PRs are welcome—especially for alternative tickers, additional baselines, or visualization improvements.
+We welcome any issues, ideas, and pull requests, particularly for alternative tickers, additional baselines, or improvements to visualisations.
 
 ---
 
