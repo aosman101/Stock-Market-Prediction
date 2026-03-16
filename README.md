@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  A deep LSTM model forecasting daily TSLA closing prices with ARIMA and KNN baselines, covering the full pipeline from data preprocessing to evaluation and 5-day rolling forecasts.
+  A deep LSTM model forecasts daily TESLA closing prices using ARIMA and KNN as baselines, encompassing the entire pipeline from data preprocessing to evaluation and 5-day rolling forecasts.
 </p>
 
 ---
@@ -43,7 +43,7 @@ pip install numpy pandas scikit-learn matplotlib seaborn tensorflow statsmodels 
 ### 2. Run the notebook
 
 ```bash
-jupyter notebook "Project Code/LSTM Networks.ipynb"
+Jupyter Notebook "Project Code/LSTM Networks.ipynb"
 ```
 
 Loads Tesla data, trains LSTM/ARIMA models, and generates evaluation plots.
@@ -91,7 +91,7 @@ Stock-Market-Prediction/
 - `scikit-learn` — KNN, scaling, metrics  
 - `tensorflow` 2.x — LSTM model
 - `statsmodels` — ARIMA baseline
-- `matplotlib`, `seaborn` — Visualization
+- `matplotlib`, `seaborn` — Visualisation
 - `jupyter` — Notebook runtime
 
 Install all: `pip install numpy pandas scikit-learn matplotlib seaborn tensorflow statsmodels jupyter`
@@ -126,7 +126,7 @@ OHLCV Data → MinMax Scale → Train/Val/Test Split
                           MAE, RMSE, R² Metrics
 ```
 
-A 2-layer LSTM with dropout and early stopping trains on normalized price data, then inverse-scales predictions to actual prices.
+A 2-layer LSTM with dropout and early stopping trains on normalised price data, then inversely scales predictions to actual prices.
 
 ---
 
@@ -134,19 +134,19 @@ A 2-layer LSTM with dropout and early stopping trains on normalized price data, 
 
 - **Lookback window:** Number of past days the LSTM sees (tunable in notebook)
 - **Forecast horizon:** Default 1-day ahead; KNN extends to rolling 5-day
-- **MinMax scaling:** Normalizes features to [0,1] for stable gradient flow
+- **MinMax scaling:** Normalises features to [0,1] for stable gradient flow
 - **Early stopping:** Prevents overfitting on noisy price regimes
 
 ---
 
 ## Contributing
 
-We welcome issues, ideas, and PRs! Potential improvements:
+We welcome issues, ideas, and pull requests! Potential improvements include:
 
-- Alternative tickers or multi-ticker support
-- Additional baselines (XGBoost, Prophet, Transformer)
-- Interactive visualizations (Plotly, walk-forward analysis)
-- Hyperparameter tuning (Optuna, Keras Tuner)
+- Support for alternative tickers and multi-ticker functionality
+- Additional baselines such as XGBoost, Prophet, and Transformer
+- Interactive visualisations using Plotly and walk-forward analysis
+- Hyperparameter tuning options like Optuna and Keras Tuner
 
 Please open an issue first to discuss larger changes.
 
