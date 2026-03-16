@@ -11,216 +11,147 @@
 </p>
 
 <p align="center">
-  A volatility-aware LSTM that forecasts daily TSLA closing prices, benchmarked against ARIMA and a fast KNN baseline — covering preprocessing, training, evaluation, and a rolling 5-day forward look.
+  A deep LSTM model forecasting daily TSLA closing prices with ARIMA and KNN baselines, covering the full pipeline from data preprocessing to evaluation and 5-day rolling forecasts.
 </p>
 
 ---
 
 ## Table of Contents
 
-- [Overview & Results](#overview--results)
-- [Model Comparison](#model-comparison)
-- [Repository Layout](#repository-layout)
-- [Requirements](#requirements)
 - [Quick Start](#quick-start)
-  - [Notebook Workflow](#notebook-workflow)
-  - [KNN Baseline Script](#knn-baseline-script)
-- [Data](#data)
+- [Model Results](#model-results)
+- [Repository Structure](#repository-structure)
+- [Requirements](#requirements)
 - [Architecture](#architecture)
-- [Modeling Notes](#modeling-notes)
 - [Contributing](#contributing)
 - [License](#license)
 
 ---
 
-## Overview & Results
+## Quick Start
 
-This project walks through the full ML pipeline for stock price forecasting:
+### 1. Setup
 
-1. **Ingest & clean** — TSLA OHLCV data from Yahoo Finance
-2. **Scale & split** — MinMax normalization + train / validation / test splits
-3. **Train** — LSTM with dropout and early stopping; ARIMA and KNN as baselines
-4. **Evaluate** — MAE, RMSE, R² with residual and trend-fit plots
-5. **Forecast** — rolling 5-day horizon from the KNN script in seconds
+```bash
+git clone https://github.com/<your-username>/Stock-Market-Prediction.git
+cd Stock-Market-Prediction
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install numpy pandas scikit-learn matplotlib seaborn tensorflow statsmodels jupyter
+```
+
+### 2. Run the notebook
+
+```bash
+jupyter notebook "Project Code/LSTM Networks.ipynb"
+```
+
+Loads Tesla data, trains LSTM/ARIMA models, and generates evaluation plots.
+
+### 3. Test the KNN baseline
+
+```bash
+python "Project Code/knn_model.py"
+```
+
+Quick 5-day rolling forecast and MSE check.
 
 ---
 
-## Model Comparison
+## Model Results
 
-| Model | MSE | MAE | RMSE | R² |
-|---|---|---|---|---|
-| **LSTM** (deep model) | `0.00080` | `0.02165` | `0.0283` | **0.9586** |
-| KNN (baseline) | — | — | — | quick check |
-| ARIMA (linear baseline) | `81 273.42` | `285.08` | `285.08` | — |
+| Model | MAE | RMSE | R² |
+|---|---|---|---|
+| **LSTM** | 0.0217 | 0.0283 | **0.9586** |
+| ARIMA (baseline) | 285.08 | 285.08 | — |
+| KNN (fast check) | — | — | — |
 
-> **LSTM explains ~95.86% of price variance** on the held-out test set, while ARIMA's error magnitude highlights the advantage of sequence modeling on this dataset.
+The LSTM captures ~95.86% of price variance, significantly outperforming the linear ARIMA baseline.
 
 ---
 
-## Repository Layout
+## Repository Structure
 
 ```
 Stock-Market-Prediction/
 ├── Project Code/
-│   ├── LSTM Networks.ipynb   # End-to-end: load → scale → train LSTM/ARIMA → evaluate/plot
-│   ├── knn_model.py          # Fast KNN baseline + rolling 5-day forecast
-│   └── tesla.csv             # Sample TSLA OHLCV data (Yahoo Finance export)
-└── README.md
+│   ├── LSTM Networks.ipynb    # End-to-end training & evaluation
+│   ├── knn_model.py           # KNN baseline & rolling forecast
+│   └── tesla.csv              # Sample Tesla OHLCV data
+├── README.md
+└── LICENSE
 ```
 
 ---
 
 ## Requirements
 
-- Python 3.8+
-- The following packages:
+**Python 3.8+** with these packages:
+- `numpy`, `pandas` — Data handling
+- `scikit-learn` — KNN, scaling, metrics  
+- `tensorflow` 2.x — LSTM model
+- `statsmodels` — ARIMA baseline
+- `matplotlib`, `seaborn` — Visualization
+- `jupyter` — Notebook runtime
 
-| Package | Purpose |
-|---|---|
-| `numpy` / `pandas` | Data wrangling |
-| `scikit-learn` | KNN, MinMax scaling, metrics |
-| `tensorflow` 2.x | LSTM model |
-| `statsmodels` | ARIMA baseline |
-| `matplotlib` / `seaborn` | Visualizations |
-| `jupyter` | Notebook runtime |
+Install all: `pip install numpy pandas scikit-learn matplotlib seaborn tensorflow statsmodels jupyter`
 
 ---
 
-## Quick Start
+## Data & Customization
 
-### 1. Clone and set up a virtual environment
+The notebook uses Yahoo Finance OHLCV data. Default: `Project Code/tesla.csv`
 
-```bash
-git clone https://github.com/<your-username>/Stock-Market-Prediction.git
-cd Stock-Market-Prediction
-
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-pip install --upgrade pip
-pip install numpy pandas scikit-learn matplotlib seaborn tensorflow statsmodels jupyter
-```
-
-### Notebook Workflow
-
-```bash
-jupyter notebook "Project Code/LSTM Networks.ipynb"
-```
-
-Run cells top-to-bottom. The notebook will:
-
-- Load `tesla.csv`, scale prices, and build train/val/test splits
-- Train the LSTM (with early stopping) and the ARIMA baseline
-- Print MAE, RMSE, and R² for each model
-- Plot price-fit and residual charts side by side
-
-### KNN Baseline Script
-
-```bash
-python "Project Code/knn_model.py"
-```
-
-Outputs:
-- Test-set MSE
-- A rounded **5-day rolling forecast** for a quick plausibility check
-
-> Run this before and after any LSTM changes as a fast regression test.
+**Using a different ticker:**
+1. Export CSV from Yahoo Finance
+2. Update notebook: `df = pd.read_csv('your_ticker.csv')`
+3. Ensure columns: Date, Open, High, Low, Close, Volume
 
 ---
 
-## Data
-
-| Field | Detail |
-|---|---|
-| Default file | `Project Code/tesla.csv` |
-| Columns | `Date, Open, High, Low, Close, Volume, Dividends, Stock Splits` |
-| Source | Yahoo Finance export |
-
-**Swapping tickers:**
-
-1. Replace `tesla.csv` with your own Yahoo Finance CSV export.
-2. Update the path in the notebook:
-   ```python
-   df = pd.read_csv(r'Project Code/your_ticker.csv')
-   ```
-3. Ensure column names match the list above — preprocessing runs without changes.
-
----
 
 ## Architecture
 
 ```
-Raw OHLCV CSV
-      │
-      ▼
-MinMax Scaling  ──────────────────────────────────────────────┐
-      │                                                        │
-      ▼                                                        ▼
-Train / Val / Test Split                               ARIMA Baseline
-      │
-      ▼
-  ┌─────────────────────────────────┐
-  │  LSTM Network                   │
-  │  ┌──────────┐  ┌──────────┐    │
-  │  │ LSTM     │→ │ LSTM     │→ Dense(1)
-  │  │ + Dropout│  │ + Dropout│    │
-  │  └──────────┘  └──────────┘    │
-  └─────────────────────────────────┘
-      │
-      ▼
-Inverse Scale → Predicted Close Price
-      │
-      ▼
-MAE · RMSE · R² + Trend/Residual Plots
+OHLCV Data → MinMax Scale → Train/Val/Test Split
+                                     ↓
+                          ┌──────────────────────┐
+                          │  LSTM Network        │
+                          │  (2x LSTM layers)    │
+                          │  + Dropout           │
+                          └──────────────────────┘
+                                     ↓
+                      Inverse Scale → Forecast
+                                     ↓
+                          MAE, RMSE, R² Metrics
 ```
+
+A 2-layer LSTM with dropout and early stopping trains on normalized price data, then inverse-scales predictions to actual prices.
 
 ---
 
-## Modeling Notes
+## Key Tuning Parameters
 
-<details>
-<summary><strong>Lookback window & forecast horizon</strong></summary>
-
-The lookback window (number of past days the LSTM sees) and forecast horizon are easily tunable in the notebook. Defaults are set for daily TSLA data — shorter windows react faster to regime changes; longer windows smooth out noise.
-
-</details>
-
-<details>
-<summary><strong>Scaling</strong></summary>
-
-MinMax scaling keeps all inputs in `[0, 1]`, which stabilizes LSTM gradient flow. If you add engineered features (e.g., RSI, volume delta), ensure each feature is scaled independently before stacking.
-
-</details>
-
-<details>
-<summary><strong>Early stopping</strong></summary>
-
-Patience is tuned for noisy price regimes. For smoother assets or longer histories, increase patience to allow the model more time to converge before halting.
-
-</details>
-
-<details>
-<summary><strong>Baselines first workflow</strong></summary>
-
-Run `knn_model.py` before and after any LSTM architecture change. A sudden drop in KNN performance is a strong signal that a data preprocessing step broke upstream.
-
-</details>
+- **Lookback window:** Number of past days the LSTM sees (tunable in notebook)
+- **Forecast horizon:** Default 1-day ahead; KNN extends to rolling 5-day
+- **MinMax scaling:** Normalizes features to [0,1] for stable gradient flow
+- **Early stopping:** Prevents overfitting on noisy price regimes
 
 ---
 
 ## Contributing
 
-Issues, ideas, and pull requests are welcome. Areas of particular interest:
+We welcome issues, ideas, and PRs! Potential improvements:
 
 - Alternative tickers or multi-ticker support
 - Additional baselines (XGBoost, Prophet, Transformer)
-- Enhanced visualizations (interactive Plotly charts, walk-forward validation plots)
-- Hyperparameter search (Optuna, Keras Tuner)
+- Interactive visualizations (Plotly, walk-forward analysis)
+- Hyperparameter tuning (Optuna, Keras Tuner)
 
-Please open an issue to discuss larger changes before submitting a PR.
+Please open an issue first to discuss larger changes.
 
 ---
 
 ## License
 
-Released under the [MIT License](LICENSE).
+[MIT License](LICENSE)
